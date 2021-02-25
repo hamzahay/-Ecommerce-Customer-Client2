@@ -31,7 +31,6 @@ export default {
         .then(({ data }) => {
           localStorage.setItem('access_token', data.access_token)
           this.$store.commit('updateLoginStatus', true)
-          this.$store.dispatch('fetchCharts')
           this.$router.push('/').catch(() => {})
         })
         .catch(({ response }) => {

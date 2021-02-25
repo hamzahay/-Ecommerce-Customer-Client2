@@ -39,11 +39,18 @@ export default {
       return this.$store.state.loginStatus
     },
     totalCartItems () {
-      return this.$store.state.carts.length
+      let totalItem = 0
+      this.$store.state.carts.forEach(cart => {
+        totalItem = totalItem + cart.quantity
+      })
+      return totalItem
     }
   },
   created () {
     this.$store.commit('auth')
+    if (localStorage.access_token) {
+      this.$store.dispatch('fetchCarts')
+    }
   }
 }
 </script>

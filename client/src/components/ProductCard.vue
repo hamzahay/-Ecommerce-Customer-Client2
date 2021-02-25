@@ -21,7 +21,20 @@ export default {
   methods: {
     addToCart () {
       if (localStorage.access_token) {
-        this.$store.dispatch('addCart', { id: this.product.id })
+        let added = false
+        let cartId = 0
+        this.carts.forEach(item => {
+          if (item.ProductId === this.product.id) {
+            added = true
+            cartId = item.id
+          }
+        })
+        console.log('added', added)
+        if (added) {
+          this.$store.dispatch('addCartQuantity', { id: cartId })
+        } else {
+          this.$store.dispatch('addCart', { id: this.product.id })
+        }
       } else {
         console.log('please login first')
       }
@@ -31,6 +44,9 @@ export default {
     getPrice () {
       const price = 'Rp.' + this.product.price.toLocaleString('id-ID')
       return price
+    },
+    carts () {
+      return this.$store.state.carts
     }
   }
 }

@@ -84,6 +84,19 @@ export default new Vuex.Store({
         .catch(err => {
           console.log(err)
         })
+    },
+    addCartQuantity (context, payload) {
+      axios({
+        method: 'PATCH',
+        url: `carts/${payload.id}`,
+        headers: { access_token: localStorage.access_token }
+      })
+        .then(({ data }) => {
+          context.dispatch('fetchCarts')
+        })
+        .catch(err => {
+          console.log(err)
+        })
     }
   },
   modules: {
