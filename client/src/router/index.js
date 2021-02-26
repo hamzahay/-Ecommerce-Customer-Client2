@@ -1,14 +1,27 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
+import MainPage from '../components/MainPage'
+import Cart from '../components/Cart.vue'
 
 Vue.use(VueRouter)
 
 const routes = [
   {
     path: '/',
-    name: 'Home',
-    component: Home
+    component: Home,
+    children: [
+      {
+        path: '/',
+        name: 'MainPage',
+        component: MainPage
+      },
+      {
+        path: '/carts',
+        name: 'Cart',
+        component: Cart
+      }
+    ]
   },
   {
     path: '/about',
@@ -41,7 +54,7 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   if (to.name === 'Login' && localStorage.access_token) {
-    next({ name: 'Home' })
+    next({ name: 'MainPage' })
   } else {
     next()
   }
