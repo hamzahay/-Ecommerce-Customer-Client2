@@ -33,7 +33,7 @@ export default {
         })
         if (added) {
           if (cart.quantity < this.product.stock) {
-            this.$store.dispatch('addCartQuantity', { id: cartId })
+            this.$store.dispatch('addCartQuantity', { id: cartId, operator: 'plus' })
           } else {
             console.log('out of stock')
           }

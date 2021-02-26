@@ -5,10 +5,12 @@
       <div class="detail-top">
         <h1>{{ cart.Product.name }}</h1>
         <h2>Price: {{ cart.quantity }} X {{ price }}</h2>
-        <h2>Stock: {{ cart.quantity }}</h2>
       </div>
       <div class="detail-bottom">
         <div class="quantity-btn">
+          <button @click.prevent="minus" class="editQuantity-btn minus">-</button>
+          <h2>{{ cart.quantity }}</h2>
+          <button @click.prevent="plus" class="editQuantity-btn plus">+</button>
         </div>
         <button @click.prevent="deleteCart" class="delete-btn">
           <img src="../assets/delete 2.png" alt="delete-image" height="30px">
@@ -33,6 +35,20 @@ export default {
   methods: {
     deleteCart () {
       this.$store.dispatch('deleteCart', { id: this.cart.id })
+    },
+    plus () {
+      if (this.cart.quantity < this.cart.Product.stock) {
+        this.$store.dispatch('addCartQuantity', { id: this.cart.id, operator: 'plus' })
+      } else {
+        console.log('out of stock')
+      }
+    },
+    minus () {
+      if (this.cart.quantity > 1) {
+        this.$store.dispatch('addCartQuantity', { id: this.cart.id, operator: 'minus' })
+      } else {
+        console.log('out of stock')
+      }
     }
   },
   computed: {
@@ -79,6 +95,7 @@ export default {
   .detail-bottom {
     display: flex;
     justify-content: space-around;
+    height: 30px;
     gap: 20px;
   }
 
@@ -88,5 +105,39 @@ export default {
     max-height: 30px;
     margin: auto 0px;
     cursor: pointer;
+  }
+
+  .quantity-btn {
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid grey;
+    border-radius: 5px;
+  }
+
+  .quantity-btn h2 {
+    margin: 0px;
+    border-left: 1px solid grey;
+    border-right: 1px solid grey;
+    padding: 0px 8px;
+  }
+
+  .editQuantity-btn {
+    border: none;
+    padding: 0px 10px;
+    margin: 0px;
+    cursor: pointer;
+    background-color: white;
+  }
+
+  .editQuantity-btn:hover {
+    background-color: rgb(250, 250, 250);
+  }
+
+  .plus {
+    border-radius: 0px 5px 5px 0px;
+  }
+
+  .minus {
+    border-radius: 5px 0px 0px 5px;
   }
 </style>

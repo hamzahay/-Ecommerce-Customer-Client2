@@ -89,6 +89,7 @@ export default new Vuex.Store({
       axios({
         method: 'PATCH',
         url: `carts/${payload.id}`,
+        data: { operator: payload.operator },
         headers: { access_token: localStorage.access_token }
       })
         .then(({ data }) => {
