@@ -7,7 +7,10 @@
         :cart="cart"
       />
     </div>
-    <div class="checkout"></div>
+    <div class="checkout">
+      <h1>Total Price: {{ totalPrice }}</h1>
+      <button class="checkout-btn">Checkout</button>
+    </div>
   </div>
 </template>
 
@@ -22,6 +25,15 @@ export default {
   computed: {
     carts () {
       return this.$store.state.carts
+    },
+    totalPrice () {
+      const carts = this.$store.state.carts
+      let totalPrice = 0
+      carts.forEach(cart => {
+        const price = cart.quantity * cart.Product.price
+        totalPrice = totalPrice + price
+      })
+      return 'Rp.' + totalPrice.toLocaleString('id-ID')
     }
   }
 }
@@ -30,7 +42,6 @@ export default {
 <style scoped>
   .checkout-container {
     display: flex;
-    justify-content: space-between;
     margin-top: 60px;
   }
 
@@ -40,5 +51,29 @@ export default {
     margin-left: 50px;
     background-color: rgba(224, 224, 224, 0.733);
     overflow: auto;
+  }
+
+  .checkout {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: auto 0px;
+    margin-left: 65px;
+    width: 600px;
+    height: 250px;
+    background-color: rgba(224, 224, 224, 0.733);
+  }
+
+  .checkout h1 {
+    margin-top: 75px;
+  }
+
+  .checkout-btn {
+    border: none;
+    color: white;
+    background-color: rgb(57, 101, 247);
+    cursor: pointer;
+    padding: 10px 25px;
+    font-size: 25px;
   }
 </style>
