@@ -1,7 +1,7 @@
 <template>
   <div class="card">
     <div class="card-top">
-      <img class="card-img" src="https://keeweeshop.com/wp-content/uploads/2014/10/Headphone-ATH-M40X-1.jpg" alt="product image">
+      <img class="card-img" :src="product.image_url" alt="product image" height="200px">
     </div>
     <div class="card-bottom">
       <h2>{{ product.name }}</h2>
@@ -57,7 +57,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
   .card {
     background-color: rgb(241, 241, 241);
     height: 350px;

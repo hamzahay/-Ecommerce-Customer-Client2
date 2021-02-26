@@ -77,6 +77,9 @@ export default {
     background-color: rgba(255, 255, 255, 0.616);
   }
 
+  .cart-img {
+  }
+
   .cart-detail {
     padding: 5px;
     margin: 10px;
