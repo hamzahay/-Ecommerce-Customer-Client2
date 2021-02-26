@@ -7,7 +7,7 @@
       </li>
       <li v-if="loginStatus" class="login-nav">
         <div>
-          <button  class="cart-btn">
+          <button @click.prevent="toCart" class="cart-btn">
           <img src="../assets/cart-2.png" height="35px">
         </button>
         <div v-if="totalCartItems > 0" class="cart-num text-primary">{{ totalCartItems }}</div>
@@ -32,6 +32,9 @@ export default {
       localStorage.removeItem('access_token')
       this.$store.commit('updateLoginStatus', false)
       this.$router.push('/login').catch(() => {})
+    },
+    toCart () {
+      this.$router.push('/carts').catch(() => {})
     }
   },
   computed: {
@@ -128,5 +131,6 @@ export default {
   .cart-btn {
     border: none;
     background-color: transparent;
+    cursor: pointer;
   }
 </style>

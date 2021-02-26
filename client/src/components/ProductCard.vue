@@ -23,15 +23,20 @@ export default {
       if (localStorage.access_token) {
         let added = false
         let cartId = 0
+        let cart
         this.carts.forEach(item => {
           if (item.ProductId === this.product.id) {
             added = true
             cartId = item.id
+            cart = item
           }
         })
-        console.log('added', added)
         if (added) {
-          this.$store.dispatch('addCartQuantity', { id: cartId })
+          if (cart.quantity < this.product.stock) {
+            this.$store.dispatch('addCartQuantity', { id: cartId })
+          } else {
+            console.log('out of stock')
+          }
         } else {
           this.$store.dispatch('addCart', { id: this.product.id })
         }
